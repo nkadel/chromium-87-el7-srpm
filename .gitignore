@@ -1,8 +1,9 @@
-*~
-*.out
-*.gz
-*.gz
 *.bz2
+*.gz
+*.out
+*.rpm
 *.xz
 *.zip
+*/
 *\#*
+*~
