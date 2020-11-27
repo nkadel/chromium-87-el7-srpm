@@ -184,7 +184,8 @@ Name:		chromium%{chromium_channel}%{nsuffix}
 Name:		chromium%{chromium_channel}
 %endif
 Version:	%{majorversion}.0.4280.66
-Release:	1%{?dist}
+#Release:	1%%{?dist}
+Release:	0%{?dist}
 %if %{?freeworld}
 %if %{?shared}
 # chromium-libs-media-freeworld
@@ -336,9 +337,7 @@ Source16:	https://github.com/web-platform-tests/wpt/raw/master/fonts/Ahem.ttf
 Source17:	GardinerModBug.ttf
 Source18:	GardinerModCat.ttf
 # RHEL 7 needs newer nodejs
-%if 0%{?rhel} == 7
 Source19:	https://nodejs.org/dist/v10.15.3/node-v10.15.3-linux-x64.tar.gz
-%endif
 # Bring xcb-proto with us (might need more than python on EPEL?)
 Source20:	https://www.x.org/releases/individual/proto/xcb-proto-1.14.tar.xz
 
@@ -518,8 +517,9 @@ BuildRequires:	systemd
 %if %{freeworld}
 # dont need fonts for this
 %else
-%if 0%{?rhel} >= 7
-# No longer available
+# Include *all* source files!
+#%if 0%{?rhel} >= 7
+# Git files no longer available
 #Source100:      https://github.com/google/fonts/blob/master/apache/arimo/Arimo-Bold.ttf
 #Source101:	https://github.com/google/fonts/blob/master/apache/arimo/Arimo-BoldItalic.ttf
 #Source102:	https://github.com/google/fonts/blob/master/apache/arimo/Arimo-Italic.ttf
@@ -532,18 +532,19 @@ Source108:	https://github.com/google/fonts/blob/master/apache/tinos/Tinos-Bold.t
 Source109:	https://github.com/google/fonts/blob/master/apache/tinos/Tinos-BoldItalic.ttf
 Source110:	https://github.com/google/fonts/blob/master/apache/tinos/Tinos-Italic.ttf
 Source111:	https://github.com/google/fonts/blob/master/apache/tinos/Tinos-Regular.ttf
-%else
+#%else
 BuildRequires:	google-croscore-arimo-fonts
 BuildRequires:	google-croscore-cousine-fonts
 BuildRequires:	google-croscore-tinos-fonts
-%endif
-%if 0%{?rhel} == 7
+#%endif
+# Include *all* source files!
+#%if 0%{?rhel} == 7
 Source112:	https://releases.pagure.org/lohit/lohit-gurmukhi-ttf-2.91.2.tar.gz
 Source113:	https://noto-website-2.storage.googleapis.com/pkgs/NotoSansCJKjp-hinted.zip
-%else
+#%else
 BuildRequires:  google-noto-sans-cjk-jp-fonts
 BuildRequires:  lohit-gurmukhi-fonts
-%endif
+#%endif
 BuildRequires:	dejavu-sans-fonts
 BuildRequires:	thai-scalable-garuda-fonts
 BuildRequires:	lohit-devanagari-fonts
