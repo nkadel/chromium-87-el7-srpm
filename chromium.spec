@@ -566,7 +566,12 @@ BuildRequires:	ninja-build
 BuildRequires:	java-1.8.0-openjdk-headless
 
 %if 0%{?rhel} == 7
-BuildRequires: devtoolset-%{dts_version}-toolchain, devtoolset-%{dts_version}-libatomic-devel
+# Enable with "--enablerepo=scl" and "--enablerepo=scl-rh"
+BuildRequires: centos-release-scl
+BuildRequires: centos-release-scl-rh
+# From SCL
+BuildRequires: devtoolset-%{dts_version}-toolchain
+BuildRequires: devtoolset-%{dts_version}-libatomic-devel
 %endif
 
 # We need to workaround a gcc 8 bug
