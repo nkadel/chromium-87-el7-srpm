@@ -12,7 +12,6 @@
 	export NINJA_STATUS="[%2:%f/%t] " ; \
 	../depot_tools/ninja -j %{numjobs} -C '%1' -vvv '%2'
 
-
 # This was faster when it worked, but it didn't always.
 # As of chromium 80, it is no longer supported. RIP.
 %global use_jumbo 0
@@ -315,7 +314,8 @@ Source0:	https://commondatastorage.googleapis.com/chromium-browser-official/chro
 Source0:	chromium-%{version}-clean.tar.xz
 %endif
 # https://chromium.googlesource.com/chromium/tools/depot_tools.git/+archive/7e7a454f9afdddacf63e10be48f0eab603be654e.tar.gz
-Source2:	depot_tools.git-master.tar.gz
+#Source2:	depot_tools.git-master.tar.gz
+Source2:	https://chromium.googlesource.com/chromium/tools/depot_tools.git/+archive/7e7a454f9afdddacf63e10be48f0eab603be654e.tar.gz
 Source3:	chromium-browser.sh
 Source4:	%{chromium_browser_channel}.desktop
 # Also, only used if you want to reproduce the clean tarball.
@@ -519,10 +519,11 @@ BuildRequires:	systemd
 # dont need fonts for this
 %else
 %if 0%{?rhel} >= 7
-Source100:      https://github.com/google/fonts/blob/master/apache/arimo/Arimo-Bold.ttf
-Source101:	https://github.com/google/fonts/blob/master/apache/arimo/Arimo-BoldItalic.ttf
-Source102:	https://github.com/google/fonts/blob/master/apache/arimo/Arimo-Italic.ttf
-Source103:	https://github.com/google/fonts/blob/master/apache/arimo/Arimo-Regular.ttf
+# No longer available
+#Source100:      https://github.com/google/fonts/blob/master/apache/arimo/Arimo-Bold.ttf
+#Source101:	https://github.com/google/fonts/blob/master/apache/arimo/Arimo-BoldItalic.ttf
+#Source102:	https://github.com/google/fonts/blob/master/apache/arimo/Arimo-Italic.ttf
+#Source103:	https://github.com/google/fonts/blob/master/apache/arimo/Arimo-Regular.ttf
 Source104:	https://github.com/google/fonts/blob/master/apache/cousine/Cousine-Bold.ttf
 Source105:	https://github.com/google/fonts/blob/master/apache/cousine/Cousine-BoldItalic.ttf
 Source106:	https://github.com/google/fonts/blob/master/apache/cousine/Cousine-Italic.ttf
@@ -553,8 +554,9 @@ BuildRequires:	google-noto-emoji-color-fonts
 BuildRequires:	google-noto-sans-symbols2-fonts
 BuildRequires:	google-noto-sans-tibetan-fonts
 %else
-Source114:	https://github.com/googlefonts/noto-fonts/blob/master/unhinted/NotoSansSymbols2/NotoSansSymbols2-Regular.ttf
-Source115:	https://github.com/googlefonts/noto-fonts/blob/master/hinted/NotoSansTibetan/NotoSansTibetan-Regular.ttf
+# No longer available
+#Source114:	https://github.com/googlefonts/noto-fonts/blob/master/unhinted/NotoSansSymbols2/NotoSansSymbols2-Regular.ttf
+#Source115:	https://github.com/googlefonts/noto-fonts/blob/master/hinted/NotoSansTibetan/NotoSansTibetan-Regular.ttf
 %endif
 %endif
 # using the built from source version on aarch64
@@ -836,7 +838,7 @@ Conflicts:	chromedriver-unstable
 WebDriver is an open source tool for automated testing of webapps across many
 browsers. It provides capabilities for navigating to web pages, user input,
 JavaScript execution, and more. ChromeDriver is a standalone server which
-implements WebDriver's wire protocol for Chromium. It is being developed by
+implements the WebDriver wire protocol for Chromium. It is being developed by
 members of the Chromium and WebDriver teams.
 
 %package headless
@@ -954,10 +956,10 @@ cp %{SOURCE16} .
 cp %{SOURCE17} .
 cp %{SOURCE18} .
 %if 0%{?rhel} >= 7
-cp %{SOURCE100} .
-cp %{SOURCE101} .
-cp %{SOURCE102} .
-cp %{SOURCE103} .
+#cp %{SOURCE100} .
+#cp %{SOURCE101} .
+#cp %{SOURCE102} .
+#cp %{SOURCE103} .
 cp %{SOURCE104} .
 cp %{SOURCE105} .
 cp %{SOURCE106} .
@@ -1002,8 +1004,9 @@ cp -a /usr/share/fonts/google-noto/NotoSansKhmer-Regular.ttf .
 cp -a /usr/share/fonts/google-noto-emoji/NotoColorEmoji.ttf .
 %if 0%{?fedora} >= 30
 cp -a /usr/share/fonts/google-noto/NotoSansSymbols2-Regular.ttf /usr/share/fonts/google-noto/NotoSansTibetan-Regular.ttf .
-%else
-cp -a %{SOURCE114} %{SOURCE115} .
+# No longer available
+#%else
+#cp -a %{SOURCE114} %{SOURCE115} .
 %endif
 popd
 %endif
@@ -1081,7 +1084,7 @@ ln -s %{_bindir}/node third_party/node/linux/node-linux-x64/bin/node
 %endif
 
 # Remove most of the bundled libraries. Libraries specified below (taken from
-# Gentoo's Chromium ebuild) are the libraries that needs to be preserved.
+# Gentoo Chromium ebuild) are the libraries that needs to be preserved.
 build/linux/unbundle/remove_bundled_libraries.py \
 	'base/third_party/cityhash' \
 	'base/third_party/cityhash_v103' \
@@ -1923,8 +1926,10 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %{chromium_path}/libmedia.so.TOC.%{lsuffix}*
 %endif
 
-
 %changelog
+* Fri Nov 27 2020 Nico Kadel-Garcia <nkadel@gmail.xom> - 87
+- Make compatible with RHEL 7
+
 * Wed Nov 18 2020 Tom Callaway <spot@fedoraproject.org> - 87.0.4280.66-1
 - update to 87.0.4280.66
 
