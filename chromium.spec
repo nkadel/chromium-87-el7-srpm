@@ -909,7 +909,8 @@ udev.
 %patch103 -p1 -b .epel7-kcmp
 %patch104 -p1 -b .el7cups
 %patch108 -p1 -b .el7-old-libdrm
-%patch109 -p1 -b .disable-nearby_sharing
+# Reported as reversed patch
+#%patch109 -p1 -b .disable-nearby_sharing
 %endif
 
 %if 0%{?rhel} == 8
@@ -1934,7 +1935,10 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 
 %changelog
 * Fri Nov 27 2020 Nico Kadel-Garcia <nkadel@gmail.xom> - 87
-- Make compatible with RHEL 7
+- Include *all* Source files independent of build OS
+- Make compatible with el7
+- Add SCL dependencies for devtoolset-* on el7
+- Disable chromium-86.0.4240.111-el7-limit-nearby-sharing-to-chromeos.patch, reverseed
 
 * Wed Nov 18 2020 Tom Callaway <spot@fedoraproject.org> - 87.0.4280.66-1
 - update to 87.0.4280.66
