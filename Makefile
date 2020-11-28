@@ -43,7 +43,7 @@ $(MOCKS):: src.rpm
 	else \
 		echo "Actally building $? in $@"; \
 		rm -rf $@; \
-		mock -q -r /etc/m ock/$@.cfg \
+		mock -q -r /etc/mock/$@.cfg \
 		     --resultdir=$(PWD)/$@ \
 		     $?; \
 	fi
