@@ -12,21 +12,21 @@
 	export NINJA_STATUS="[%2:%f/%t] " ; \
 	../depot_tools/ninja -j %{numjobs} -C '%1' -vvv '%2'
 
-# This was faster when it worked, but it didn't always.
+# This was faster when it worked, but it did not always.
 # As of chromium 80, it is no longer supported. RIP.
 %global use_jumbo 0
 
 # We usually want this.
 %global build_headless 1
 
-# This doesn't work and it doesn't even build as of Chromium 83
+# This does not work and it does not even build as of Chromium 83
 %global build_remoting 1
 
-# We'd like to always have this on.
+# We Would like to always have this on.
 %global use_vaapi 1
 
 # Seems like we might need this sometimes
-# Practically, no. But it's here in case we do.
+# Practically, no. But it is here in case we do.
 %global use_gold 0
 
 # 2020-08-20: F33+ aarch64 has a binutils bug trying to link clear_key_cdm
@@ -59,7 +59,7 @@
 %global headlessbuilddir out/Headless
 %global remotingbuilddir out/Remoting
 
-# Debuginfo packages aren't very useful here. If you need to debug
+# Debuginfo packages are not very useful here. If you need to debug
 # you should do a proper debug build (not implemented in this spec yet)
 %global debug_package %{nil}
 
@@ -71,7 +71,7 @@
 %global chromium_path %{_libdir}/chromium-browser%{chromium_channel}
 %global crd_path %{_libdir}/chrome-remote-desktop
 
-# We don't want any libs in these directories to generate Provides
+# We do not want any libs in these directories to generate Provides
 # Requires is trickier.
 
 # To generate this list, go into %%{buildroot}%%{chromium_path} and run
@@ -79,7 +79,7 @@
 # for RHEL7, append libfontconfig to the end
 # make sure there is not a trailing | at the end of the list
 
-# We don't really need to do this unless we're building shared.
+# We do not really need to do this unless we're building shared.
 
 %if 0%{?shared}
 
@@ -98,7 +98,7 @@
 %global asan 0
 
 %if 0
-# Chromium's fork of ICU is now something we can't unbundle.
+# Chromium's fork of ICU is now something we cannot unbundle.
 # This is left here to ease the change if that ever switches.
 BuildRequires:  libicu-devel >= 5.4
 %global bundleicu 0
@@ -426,20 +426,20 @@ BuildRequires:	libevent-devel
 BuildRequires:	libffi-devel
 %if 0%{?bundleicu}
 # If this is true, we're using the bundled icu.
-# We'd like to use the system icu every time, but we cannot always do that.
+# We Would like to use the system icu every time, but we cannot always do that.
 %else
 # Not newer than 54 (at least not right now)
 BuildRequires:	libicu-devel = 54.1
 %endif
 %if 0%{?bundlelibjpeg}
 # If this is true, we're using the bundled libjpeg
-# which we need to do because the RHEL 7 libjpeg doesn't work for chromium anymore
+# which we need to do because the RHEL 7 libjpeg does not work for chromium anymore
 %else
 BuildRequires:	libjpeg-devel
 %endif
 %if 0%{?bundlelibpng}
 # If this is true, we're using the bundled libpng
-# which we need to do because the RHEL 7 libpng doesn't work right anymore
+# which we need to do because the RHEL 7 libpng does not work right anymore
 %else
 BuildRequires:	libpng-devel
 %endif
@@ -455,7 +455,7 @@ Requires:	libusbx >= 1.0.21-0.1.git448584a
 BuildRequires:	libusbx-devel >= 1.0.21-0.1.git448584a
 %endif
 BuildRequires:	libva-devel
-# We don't use libvpx anymore because Chromium loves to
+# We do not use libvpx anymore because Chromium loves to
 # use bleeding edge revisions here that break other things
 # ... so we just use the bundled libvpx.
 %if %{bundlelibwebp}
@@ -517,36 +517,34 @@ BuildRequires:	systemd
 %if %{freeworld}
 # dont need fonts for this
 %else
-# Include *all* source files!
-#%if 0%{?rhel} >= 7
 # Git files no longer available
-#Source100:      https://github.com/google/fonts/blob/master/apache/arimo/Arimo-Bold.ttf
+#Source100:	https://github.com/google/fonts/blob/master/apache/arimo/Arimo-Bold.ttf
 #Source101:	https://github.com/google/fonts/blob/master/apache/arimo/Arimo-BoldItalic.ttf
 #Source102:	https://github.com/google/fonts/blob/master/apache/arimo/Arimo-Italic.ttf
 #Source103:	https://github.com/google/fonts/blob/master/apache/arimo/Arimo-Regular.ttf
-Source104:	https://github.com/google/fonts/blob/master/apache/cousine/Cousine-Bold.ttf
-Source105:	https://github.com/google/fonts/blob/master/apache/cousine/Cousine-BoldItalic.ttf
-Source106:	https://github.com/google/fonts/blob/master/apache/cousine/Cousine-Italic.ttf
-Source107:	https://github.com/google/fonts/blob/master/apache/cousine/Cousine-Regular.ttf
-Source108:	https://github.com/google/fonts/blob/master/apache/tinos/Tinos-Bold.ttf
-Source109:	https://github.com/google/fonts/blob/master/apache/tinos/Tinos-BoldItalic.ttf
-Source110:	https://github.com/google/fonts/blob/master/apache/tinos/Tinos-Italic.ttf
-Source111:	https://github.com/google/fonts/blob/master/apache/tinos/Tinos-Regular.ttf
+#Source104:	https://github.com/google/fonts/blob/master/apache/cousine/Cousine-Bold.ttf
+#Source105:	https://github.com/google/fonts/blob/master/apache/cousine/Cousine-BoldItalic.ttf
+#Source106:	https://github.com/google/fonts/blob/master/apache/cousine/Cousine-Italic.ttf
+#Source107:	https://github.com/google/fonts/blob/master/apache/cousine/Cousine-Regular.ttf
+#Source108:	https://github.com/google/fonts/blob/master/apache/tinos/Tinos-Bold.ttf
+#Source109:	https://github.com/google/fonts/blob/master/apache/tinos/Tinos-BoldItalic.ttf
+#Source110:	https://github.com/google/fonts/blob/master/apache/tinos/Tinos-Italic.ttf
+#Source111:	https://github.com/google/fonts/blob/master/apache/tinos/Tinos-Regular.ttf
+# Include *all* source files, even those only for el7
+Source112:	https://releases.pagure.org/lohit/lohit-gurmukhi-ttf-2.91.2.tar.gz
+Source113:	https://noto-website-2.storage.googleapis.com/pkgs/NotoSansCJKjp-hinted.zip
 %if 0%{?rhel} >= 7
 %else
 BuildRequires:	google-croscore-arimo-fonts
 BuildRequires:	google-croscore-cousine-fonts
 BuildRequires:	google-croscore-tinos-fonts
 %endif
-# Include *all* source files!
-#%if 0%{?rhel} == 7
-Source112:	https://releases.pagure.org/lohit/lohit-gurmukhi-ttf-2.91.2.tar.gz
-Source113:	https://noto-website-2.storage.googleapis.com/pkgs/NotoSansCJKjp-hinted.zip
 %if 0%{?rhel} == 7
 %else
 BuildRequires:  google-noto-sans-cjk-jp-fonts
 BuildRequires:  lohit-gurmukhi-fonts
 %endif
+
 BuildRequires:	dejavu-sans-fonts
 BuildRequires:	thai-scalable-garuda-fonts
 BuildRequires:	lohit-devanagari-fonts
@@ -651,7 +649,7 @@ Provides: bundled(crashpad)
 Provides: bundled(dmg_fp)
 Provides: bundled(expat) = 2.2.0
 Provides: bundled(fdmlibm) = 5.3
-# Don't get too excited. MPEG and other legally problematic stuff is stripped out.
+# Do not get too excited. MPEG and other legally problematic stuff is stripped out.
 Provides: bundled(ffmpeg) = 3.2git
 Provides: bundled(fips181) = 2.2.3
 %if 0%{?bundlefontconfig}
@@ -693,7 +691,7 @@ Provides: bundled(libvpx) = 1.6.0
 Provides: bundled(libwebp) = 0.6.0
 %endif
 %if %{bundlelibxml}
-# Well, it's actually newer than 2.9.4 and has code in it that has been reverted upstream... but eh.
+# Well, it is actually newer than 2.9.4 and has code in it that has been reverted upstream... but eh.
 Provides: bundled(libxml) = 2.9.4
 %endif
 Provides: bundled(libXNVCtrl) = 302.17
@@ -778,7 +776,7 @@ Requires: minizip-compat%{_isa}
 Requires: minizip%{_isa}
 %endif
 %endif
-# -common doesn't have chrome-remote-desktop bits
+# -common does not have chrome-remote-desktop bits
 # but we need to clean it up if it gets disabled again
 # NOTE: Check obsoletes version to be sure it matches
 %if ! %{build_remoting}
@@ -970,14 +968,14 @@ cp %{SOURCE18} .
 #cp %{SOURCE101} .
 #cp %{SOURCE102} .
 #cp %{SOURCE103} .
-cp %{SOURCE104} .
-cp %{SOURCE105} .
-cp %{SOURCE106} .
-cp %{SOURCE107} .
-cp %{SOURCE108} .
-cp %{SOURCE109} .
-cp %{SOURCE110} .
-cp %{SOURCE111} .
+#cp %{SOURCE104} .
+#cp %{SOURCE105} .
+#cp %{SOURCE106} .
+#cp %{SOURCE107} .
+#cp %{SOURCE108} .
+#cp %{SOURCE109} .
+#cp %{SOURCE110} .
+#cp %{SOURCE111} .
 %else
 %if 0%{?fedora} >= 33
 cp -a /usr/share/fonts/google-arimo-fonts/Arimo-*.ttf .
@@ -1345,7 +1343,7 @@ build/linux/unbundle/remove_bundled_libraries.py \
 	--do-remove
 
 %if ! 0%{?bundlepylibs}
-# Look, I don't know. This package is spit and chewing gum. Sorry.
+# Look, I do not know. This package is spit and chewing gum. Sorry.
 rm -rf third_party/markupsafe
 ln -s %{python2_sitearch}/markupsafe third_party/markupsafe
 # We should look on removing other python2 packages as well i.e. ply
@@ -1416,7 +1414,7 @@ build/linux/unbundle/replace_gn_files.py --system-libraries \
 sed -i 's|arm-linux-gnueabihf-|arm-linux-gnu-|g' build/toolchain/linux/BUILD.gn
 
 %ifarch aarch64
-# We don't need to cross compile while building on an aarch64 system.
+# We do not need to cross compile while building on an aarch64 system.
 sed -i 's|aarch64-linux-gnu-||g' build/toolchain/linux/BUILD.gn
 
 # Correct the ninja file to check for aarch64, not just x86.
@@ -1459,7 +1457,7 @@ tools/gn/bootstrap/bootstrap.py -v --no-clean --gn-gen-args="$CHROMIUM_CORE_GN_D
 %else
 # hackity hack hack
 rm -rf third_party/libusb/src/libusb/libusb.h
-# we _shouldn't need to do this, but it looks like we do.
+# we _should not need to do this, but it looks like we do.
 cp -a %{_includedir}/libusb-1.0/libusb.h third_party/libusb/src/libusb/libusb.h
 %endif
 
@@ -2597,7 +2595,7 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 - happy star trek day. live long and prosper.
 
 * Wed Sep  7 2016 Tom Callaway <spot@fedoraproject.org> 53.0.2785.92-1
-- add basic framework for gn tooling (disabled because it doesn't work yet)
+- add basic framework for gn tooling (disabled because it does not work yet)
 - update to 53.0.2785.92
 - fix HOME environment issue in chrome-remote-desktop service file
 
@@ -2778,10 +2776,10 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 - update the clean_ffmpeg script to print errors when some files that we are
   processing are missing
 - update the clean_ffmpeg script to operate on tarball's toplevel folder
-- don't show comments as removed tests in get_linux_tests_names script
+- do not show comments as removed tests in get_linux_tests_names script
 - rework the process_ffmpeg_gyp script (also rename it to
   get_free_ffmpeg_source_files) to use the GN files insted of GYP (but we still
-  didn't switched to GN build)
+  did not switched to GN build)
 
 * Wed Dec 16 2015 Tom Callaway <spot@fedoraproject.org> 47.0.2526.106-1
 - update to 47.0.2526.106
@@ -2931,7 +2929,7 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 * Wed Oct 08 2014 Tomas Popela <tpopela@redhat.com> 38.0.2125.101-1
 - Update to 38.0.2125.101
 - System openssl is used for tests, otherwise the bundled boringssl is used
-- Don't build with clang
+- Do Not build with clang
 - Resolves: rhbz#1004948
 
 * Wed Sep 10 2014 Tomas Popela <tpopela@redhat.com> 37.0.2062.120-1
